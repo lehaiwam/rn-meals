@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, FlatList } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, FlatList, SafeAreaView } from 'react-native'
 import React from 'react'
 
 const windowDimensions = Dimensions.get('window');
@@ -8,7 +8,7 @@ const MealCard = ({header, arrayItems}) => {
     return (
         <View style={styles.cardContainer}>
             <Text style={styles.header}>{header}: </Text>
-            <View style={styles.arrayItemsContainer}>
+            <SafeAreaView style={styles.arrayItemsContainer}>
                 <FlatList 
                     data={arrayItems}
                     renderItem={ (arrayData) => {
@@ -17,7 +17,7 @@ const MealCard = ({header, arrayItems}) => {
                         )    
                     }}   
                 />
-            </View>
+            </SafeAreaView>
         </View>
     )
 }
@@ -26,13 +26,12 @@ export default MealCard
 
 const styles = StyleSheet.create({
     cardContainer: {
-        flex: 1,
-        width: windowDimensions.width * 0.75,
-        backgroundColor: '#fade7b',
-        borderColor: '#434141',
-        borderWidth: 2,
+        backgroundColor: '#3b2a80',
+        padding: 8,
+        alignItems: 'center',
+        marginVertical: 12,
+        width: windowDimensions.width * 0.9,
         borderRadius: 12,
-        marginVertical: 8,
     },
     header: {
         paddingHorizontal: 4,
@@ -40,19 +39,34 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '800',
         textTransform: 'capitalize',
-        marginVertical: 4,
+        marginBottom: 8,
+        color: '#ffffff'
         //width: windowDimensions.width * 0.9,
     },
+
     arrayItemsContainer: {
-        borderColor: '#434141',
-        borderWidth: .5,
+        width: '100%',
+        borderColor: '#a29c9c',
+        borderWidth: 1,
+        borderRadius: 12,
+        alignItems: 'center',
+        /*
         elevation: 2,
-        paddingHorizontal: 12,
+        paddingHorizontal: 16,
         paddingVertical: 8,
+        */
     },
+    
     arrayItem: {
-        color: '#4c2133',
+        width: windowDimensions.width * 0.75,
+        color: '#4b494a',
         fontWeight: 800,
-        
+
+        borderColor: '#f4ecec',
+        borderWidth: 1,
+        borderRadius: 8,
+        textAlign: 'center',
+        marginVertical: 4,
+        backgroundColor: '#ffffff',
     }
 })

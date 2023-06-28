@@ -5,15 +5,14 @@ import React from 'react'
 const CategoryGridTile = ({id, title, color, showCategoryMeals}) => {
 
     const showCategoryMealsHandler = () => {
-
         showCategoryMeals(id)
-
     }
 
     return (
         <View style={[styles.gridItem]}>
             <Pressable 
                 onPress={ showCategoryMealsHandler }
+                android_disableSound={true}
                 android_ripple={{color:'#000'}}    // seems redundant
                 style={ ({pressed}) => 
                     [styles.pressableItem, pressed ? styles.pressedItem : null]}>

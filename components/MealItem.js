@@ -1,42 +1,48 @@
-import { Dimensions, StyleSheet, Text, View, Image} from 'react-native'
+import { Dimensions, StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import MealCard from './MealCard';
+import MealDetails from './MealDetails';
 
 const windowDimensions = Dimensions.get('window');
 
-const MealItem = ({id, title, affordability, complexity, imageUrl, ingredients, steps}) => {
+
+const MealItem = ({id, title, affordability, complexity, imageUrl, duration, ingredients, steps }) => {
+   
+    const navigation = useNavigation()
+
+    const migrateToTheMealScreen = () => {
+        console.log('\n   Migrating to The Meal Screen...')
+        navigation.navigate('MealDetailsScreen', { 
+            id: id,
+            title: title,
+            imageUrl: imageUrl,
+            affordability: affordability,
+            complexity: complexity,
+            duration: duration,
+            ingredients: ingredients,
+            steps: steps,
+        })
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.titleText}>{title}</Text>
-    
-            <View style={styles.imageContainer}>
-                <Image style={styles.mealImage}
-                    source={{ uri: imageUrl, }}
-                />
-            </View>
-            <View style={styles.affordComplexContainer}>
-                <Text style={styles.affordability}>Affordability: {affordability}</Text>
-                <Text style={styles.complexity}>Complexity: {complexity}</Text>
-            </View>
+            <Pressable
+                onPress={ migrateToTheMealScreen }
+                android_disableSound={true}
+                android_ripple={{ color:'#817f7e' }} >
+                <View style={styles.imageContainer}>
+                    <Image style={styles.mealImage}
+                        source={{ uri: imageUrl}}
+                    />
+                </View>
+            </Pressable>
 
-            <MealCard header='Ingredients' arrayItems={ingredients}/>
-            <MealCard header='Steps' arrayItems={steps}/>
-            
-            {/* 
-            <Text style={styles.ingredientsHeader}>ingredients: </Text>
-            <View style={styles.ingredientsContainer}>
-                <FlatList 
-                    data={ingredients}
-                    renderItem={ (ingredientsData) => {
-                        return (
-                            <Text style={styles.ingredientItem}>{ingredientsData.item}</Text>
-                        )    
-                    }}   
-                />
-            </View>
-            */}
-
+            <MealDetails 
+                affordability={affordability}
+                complexity={complexity}
+                duration={duration}
+            />
         </View>
     )
 }
@@ -45,29 +51,27 @@ export default MealItem
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#f2ab8c',
-        flex: 1,
+        backgroundColor: '#3b2a80',
         padding: 12,
         alignItems: 'center',
-        marginVertical: 18,
+        marginVertical: 12,
         width: windowDimensions.width * 0.9,
         borderRadius: 12,
     },
+
     titleText: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: '#f7f1f1',
     },
-    affordComplexContainer: {
-        width: '100%',
-        justifyContent: 'space-between',
-        padding: 8,
-    },
+
     imageContainer: {
         width: windowDimensions.width * 0.75, 
         height: windowDimensions.height * 0.25,
         alignItems: 'center',
-        marginVertical: 12,
+        marginVertical: 8,
         borderRadius: 16,
+        elevation: 6,
     },
     mealImage: {
         width: windowDimensions.width * 0.75, 
@@ -75,17 +79,4 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginHorizontal: 8,
     },
-    affordability: {
-        fontSize: 16,
-        fontWeight: '800',
-        textTransform: 'capitalize',
-        marginLeft: 12,
-    },
-    complexity: {
-        fontSize: 16,
-        fontWeight: '800',
-        textTransform: 'capitalize',
-        marginLeft: 12,
-    },
-
 })
