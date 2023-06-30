@@ -17,6 +17,7 @@ export default IngredientAndSteps
 
 const styles = StyleSheet.create({
     container: {
-        width: windowDimensions.width * 0.9,
+      flex:1,
+      width: windowDimensions.width * 0.9,
     },
 })

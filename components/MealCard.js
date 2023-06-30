@@ -26,6 +26,7 @@ export default MealCard
 
 const styles = StyleSheet.create({
     cardContainer: {
+        flex: 1,
         backgroundColor: '#3b2a80',
         padding: 8,
         alignItems: 'center',
